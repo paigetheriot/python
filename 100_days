@@ -1,0 +1,51 @@
+# Day 5: 
+# 51. Calculating an average from a list of heights without using sum or len (using for loops)
+student_heights = input("Input a list of student heights ").split()
+for n in range(0, len(student_heights)):
+  student_heights[n] = int(student_heights[n])
+
+num = 0
+tot = 0
+
+for height in student_heights:
+    tot += height
+    num += 1
+
+avg = round(tot / num)
+print(avg)
+
+# 52. Calculating the maximum score from a list without using max or min (using for loops)
+student_scores = input("Input a list of student scores ").split()
+for n in range(0, len(student_scores)):
+  student_scores[n] = int(student_scores[n])
+print(student_scores)
+
+max = 0
+
+for n in student_scores:
+    if n > max:
+        max = n
+
+max = str(max)
+print("The highest score in the class is: " + max)
+
+# 54. Add all even numbers from 1 to 100
+tot = 0
+
+for num in range(1, 101):
+    if num%2 == 0:
+        tot += num
+
+print(tot)
+
+# 
+
+
+
+
+
+
+
+
+
+
