@@ -1,0 +1,52 @@
+import requests
+from bs4 import BeautifulSoup
+
+class WebScraper:
+    def __init__(self, url):
+        self.url = url
+
+    def get_html(self):
+        response = requests.get(self.url)
+        if response.status_code == 200:
+            return response.text
+        return None
+
+    def scrape_website(self):
+        html = self.get_html()
+        if not html:
+            print("Failed to retrieve the webpage.")
+            return
+
+        soup = BeautifulSoup(html, 'html.parser')
+
+        # Example: Extracting all the links from the webpage
+        links = [a['href'] for a in soup.find_all('a') if 'href' in a.attrs]
+
+        # We can add more scraping logic here
+
+        return links
+
+if __name__ == "__main__":
+    url_to_scrape = "https://example.com"
+    scraper = WebScraper(url_to_scrape)
+    scraped_links = scraper.scrape_website()
+
+    if scraped_links:
+        for link in scraped_links:
+            print(link)
+    else:
+        print("No data to display.")
+
+# Here's how this code follows:
+#
+#SOLID:
+#Single Responsibility Principle (SRP): The WebScraper class has a single responsibility, which is to scrape a website. It encapsulates all the methods and logic related to web scraping.
+#Open-Closed Principle (OCP): The code can be easily extended to add more scraping logic without modifying the existing WebScraper class. You can create new methods for different types of data extraction.
+#Liskov Substitution Principle (LSP): This principle is not explicitly relevant in this specific context, but it would apply if you were building a class hierarchy for different types of scrapers.
+#Interface Segregation Principle (ISP): There are no explicit interfaces in this example, but if your program grows, you can adhere to this principle by creating specific interfaces for different types of scraping.
+#Dependency Inversion Principle (DIP): The code depends on abstractions (e.g., the requests library and Beautiful Soup) rather than concrete implementations, making it more flexible and testable.
+#
+#DRY: (Don't Repeat Yourself): The code avoids repetition by encapsulating common functionality (e.g., making an HTTP request) in the get_html method. This method is reusable, ensuring that the code for making requests is not duplicated.
+#
+#YAGNI (You Ain't Gonna Need It): The code is kept simple and only includes basic web scraping functionality. Additional features and complexity are not added unless they are needed. You can extend the code as necessary for your specific use cases.
+
